@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Channel Switcher</title>
+    <title>Channel Switcher</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -13,7 +13,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #000; /* Black background like a TV */
+            background-color: #000; /* TV-like background */
             color: white;
         }
         iframe {
@@ -33,13 +33,15 @@
     </style>
 </head>
 <body>
+
     <!-- Display current channel info -->
     <div class="channel-info" id="channel-info">Channel 1: Example</div>
 
-    <!-- Iframe acting as the "screen" -->
-    <iframe id="tv-screen" src=""></iframe>
+    <!-- Iframe screen to display channels -->
+    <iframe id="tv-screen" src="https://example.com"></iframe>
 
-    <!-- Include the JavaScript -->
+    <!-- JavaScript -->
     <script src="script.js"></script>
+
 </body>
 </html>

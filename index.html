@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iframe Switcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+        iframe {
+            width: 90%;
+            height: 80%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <iframe id="iframe" src="https://example.com"></iframe>
+    <script>
+        // List of websites to cycle through
+        const websites = [
+            "https://example.com",
+            "https://www.wikipedia.org",
+            "https://www.github.com",
+            "https://www.stackoverflow.com",
+            "https://www.google.com"
+        ];
+
+        let currentIndex = 0;
+
+        // Function to update the iframe's src
+        function updateIframe(index) {
+            const iframe = document.getElementById("iframe");
+            iframe.src = websites[index];
+        }
+
+        // Prevent default scrolling behavior for Page Up/Down keys
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "PageUp" || event.key === "PageDown") {
+                event.preventDefault(); // Stop the default scrolling behavior
+
+                if (event.key === "PageUp") {
+                    // Navigate to the previous website
+                    currentIndex = (currentIndex - 1 + websites.length) % websites.length;
+                } else if (event.key === "PageDown") {
+                    // Navigate to the next website
+                    currentIndex = (currentIndex + 1) % websites.length;
+                }
+
+                updateIframe(currentIndex);
+            }
+        });
+    </script>
+</body>
+</html>

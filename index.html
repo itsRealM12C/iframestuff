@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iframe Switcher</title>
-    <script>
+    <title>Web Channel Switcher</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -14,18 +13,69 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
+            background-color: #000; /* Black background like a TV */
+            color: white;
         }
         iframe {
             width: 90%;
-            height: 80%;
+            height: 90%;
             border: none;
         }
+        .channel-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 16px;
+        }
     </style>
-        </script>
 </head>
 <body>
-    <iframe id="iframe" src="https://example.com"></iframe>
-    <script src="script.js"></script>
+    <!-- Display current channel info -->
+    <div class="channel-info" id="channel-info">Channel 1: Example</div>
+
+    <!-- Iframe acting as the "screen" -->
+    <iframe id="tv-screen" src="https://example.com"></iframe>
+
+    <script>
+        // List of "channels" (websites)
+        const channels = [
+            { name: "Channel 1: Example", url: "https://example.com" },
+            { name: "Channel 2: Wikipedia", url: "https://www.wikipedia.org" },
+            { name: "Channel 3: GitHub", url: "https://www.github.com" },
+            { name: "Channel 4: Stack Overflow", url: "https://www.stackoverflow.com" },
+            { name: "Channel 5: Google", url: "https://www.google.com" }
+        ];
+
+        let currentChannel = 0;
+
+        // Update iframe and channel info
+        function updateChannel() {
+            const channelInfo = document.getElementById("channel-info");
+            const tvScreen = document.getElementById("tv-screen");
+
+            // Update iframe source and channel name
+            channelInfo.textContent = channels[currentChannel].name;
+            tvScreen.src = channels[currentChannel].url;
+        }
+
+        // Listen for keydown events
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "PageUp") {
+                // Channel up
+                currentChannel = (currentChannel + 1) % channels.length; // Wrap around to the first channel
+                updateChannel();
+            } else if (event.key === "PageDown") {
+                // Channel down
+                currentChannel = (currentChannel - 1 + channels.length) % channels.length; // Wrap around to the last channel
+                updateChannel();
+            }
+        });
+
+        // Initialize the first channel
+        updateChannel();
+    </script>
 </body>
 </html>

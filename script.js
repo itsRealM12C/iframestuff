@@ -1,4 +1,4 @@
-// List of "channels" (websites)
+// Define channels (websites)
 const channels = [
     { name: "Channel 1: Example", url: "https://example.com" },
     { name: "Channel 2: Wikipedia", url: "https://www.wikipedia.org" },
@@ -7,30 +7,32 @@ const channels = [
     { name: "Channel 5: Google", url: "https://www.google.com" }
 ];
 
-let currentChannel = 0;
+let currentChannelIndex = 0; // Start on the first channel
 
-// Function to update iframe and channel info
+// Function to update the iframe and channel info
 function updateChannel() {
+    const iframe = document.getElementById("tv-screen");
     const channelInfo = document.getElementById("channel-info");
-    const tvScreen = document.getElementById("tv-screen");
 
-    // Update iframe source and channel name
-    channelInfo.textContent = channels[currentChannel].name;
-    tvScreen.src = channels[currentChannel].url;
+    // Update the iframe to show the new channel
+    iframe.src = channels[currentChannelIndex].url;
+
+    // Update the channel info overlay
+    channelInfo.textContent = channels[currentChannelIndex].name;
 }
 
-// Listen for keydown events
-document.addEventListener("keydown", (event) => {
+// Listen for PageUp or PageDown key presses
+document.addEventListener("keydown", function(event) {
     if (event.key === "PageUp") {
-        // Channel up
-        currentChannel = (currentChannel + 1) % channels.length; // Wrap around to the first channel
+        // Move to the next channel (wrap around if needed)
+        currentChannelIndex = (currentChannelIndex + 1) % channels.length;
         updateChannel();
     } else if (event.key === "PageDown") {
-        // Channel down
-        currentChannel = (currentChannel - 1 + channels.length) % channels.length; // Wrap around to the last channel
+        // Move to the previous channel (wrap around if needed)
+        currentChannelIndex = (currentChannelIndex - 1 + channels.length) % channels.length;
         updateChannel();
     }
 });
 
-// Initialize the first channel
+// Initialize the first channel when the page loads
 updateChannel();
